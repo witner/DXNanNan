@@ -19,6 +19,8 @@ class UserProfile(models.Model):
 
     class Meta:
         db_table = 't_user_profile'
+        verbose_name = u'用户扩展信息'
 
     def __str__(self):
-        return self.user
+        r = "{}({}{})".format(self.user.username, self.user.last_name, self.user.first_name)
+        return r
