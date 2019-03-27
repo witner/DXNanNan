@@ -1,5 +1,5 @@
 """
-WSGI config for DXNanNan project.
+WSGI Config for DXNanNan project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
