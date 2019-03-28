@@ -1,0 +1,148 @@
+<!-- base.html -->
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html lang="zh-CN">
+    <head>
+        <!-- meta相关设置 -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <meta name="description" content="">
+        <meta name="author" content="Y_winter_w">
+        {% block basehtml-head-meta %} {% endblock %}
+
+        <!-- title相关设置 -->
+        <title>
+            {% block title %} {% endblock %}
+        </title>
+
+        <!-- css link相关设置 -->
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="/static/plugins/iCheck/custom.css">
+
+        <link rel="stylesheet" href="/static/plugins/chosen/chosen.css">
+
+        <link rel="stylesheet" href="/static/plugins/cropper/cropper.min.css">
+
+        <link rel="stylesheet" >
+
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="/static/plugins/Ionicons/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/static/plugins/AdminLTE/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="/static/plugins/AdminLTE/css/_all-skins.min.css">
+        <!-- Morris chart -->
+        <link rel="stylesheet" href="/static/plugins/morris/css/morris.css">
+        <!-- jvectormap -->
+        <link rel="stylesheet" href="/static/plugins/jvectormap/css/jquery-jvectormap.css">
+        <!-- Date Picker -->
+        <link rel="stylesheet" href="/static/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href="/static/plugins/bootstrap-daterangepicker/css/daterangepicker.css">
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/css/bootstrap3-wysihtml5.min.css">
+
+        <link rel="stylesheet" href="/static/plugins/colorpicker/css/bootstrap-colorpicker.min.css">
+        <!-- footable  -->
+        <link href="/static/plugins/footable/css/footable.core.css" rel="stylesheet">
+        <!-- hAdmin-->
+        <link href="/static/plugins/hAdmin/css/animate.css" rel="stylesheet">
+        <link href="/static/plugins/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+        {% block basehtml-head-link %} {% endblock %}
+
+        <script src="/static/plugins/bootstrap-3.3.7-dist/js/ie-emulation-modes-warning.js"></script>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        -->
+        {% block basehtml-head-script %} {% endblock %}
+
+    </head>
+    <body class="skin-purple sidebar-mini">
+    <div class="wrapper">
+        <div id="basehtml-body-div-header">
+            <!-- header 网页顶部导航栏相关设置配置 -->
+            {% block basehtml-body-div-header %}
+                {% include 'theme/header.html' %}
+            {% endblock %}
+        </div>
+
+        <div id="block basehtml-body-div-aside">
+            <!-- aside Left side column. contains the logo and sidebar  网页侧栏相关设置配置 -->
+            {% block basehtml-body-div-aside %}
+                 {% include 'theme/aside.html' %}
+            {% endblock %}
+        </div>
+
+
+        <div id="basehtml-body-div-wrapper">
+            <!-- Content Wrapper. Contains page content 网页底部相关设置配置 -->
+            {% block basehtml-body-div-wrapper %}
+            {% endblock %}
+        </div>
+
+        <div id="basehtml-body-div-footer">
+            <!-- footer 网页底部相关设置配置 -->
+            {% block basehtml-body-div-footer %}
+                {% include 'theme/footer.html' %}
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <!-- 相关js************************************************************************************ -->
+    <!-- jQuery 3 -->
+    <script src="/static/plugins/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/static/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="/static/plugins/bootstrap-3.3.7-dist/js/holder.min.js"></script>
+    <!-- Bootstrap-datetimepicker JavaScript================================================== -->
+    <script src="/static/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/static/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- Bootstrap core JavaScript================================================== -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/plugins/bootstrap-3.3.7-dist/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- FastClick -->
+    <script src="/static/plugins/fastclick/js/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/static/plugins/AdminLTE/js/adminlte.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/static/plugins/jquery-sparkline/js/jquery.sparkline.min.js"></script>
+    <!-- jvectormap  -->
+    <script src="/static/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/static/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll -->
+    <script src="/static/plugins/jquery-slimscroll/js/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS -->
+    <script src="/static/plugins/ChartJS/js/Chart.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="/static/plugins/AdminLTE/js/dashboard2.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/static/plugins/AdminLTE/js/demo.js"></script>
+
+    <!-- JSKnob -->
+    <script src="/static/plugins/jsKnob/jquery.knob.js"></script>
+    <!-- footable -->
+    <script src="/static/plugins/footable/js/footable.all.min.js"></script>
+
+
+    {% block basehtml-body-js %} {% endblock %}
+
+    </body>
+</html>
+
+
+
+
+

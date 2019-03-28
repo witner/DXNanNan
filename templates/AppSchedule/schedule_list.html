@@ -1,0 +1,320 @@
+<!-- 继承base.html -->
+{% extends 'theme/base.html' %}
+
+{% block title %} 清单列表 {% endblock %}
+
+{% block basehtml-head-meta %}
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+{% endblock %}
+
+{% block basehtml-head-link %}
+<!-- DataTables -->
+<link rel="stylesheet" href="/static/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css">
+{% endblock %}
+
+
+<!-- Content Wrapper. Contains page content 网页主体相关设置配置 -->
+{% block basehtml-body-div-wrapper %}
+<div class="content-wrapper" style="min-height: 916px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            清单列表
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Tables</a></li>
+            <li class="active">Data tables</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <div class="box box-danger">
+                    <form role="form" class="form-group" action="{% url 'schedule_list' %}" method="post">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">过滤查询条件</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">选项 01</a>
+                                    </li>
+                                    <li><a href="#">选项 02</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!--过滤查询条件-->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border: none">序号</span>
+                                        <input type="text" class="form-control" placeholder="序号" style="border-radius: 5px" name="id">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border: none">概述</span>
+                                        <input type="text" class="form-control" placeholder="概述" style="border-radius: 5px" name="outline">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border: none">状态</span>
+                                        <select class="form-control" name="state">
+                                            <option value=0>全部</option>
+                                            <option value=1>未开始</option>
+                                            <option value=2>进行中</option>
+                                            <option value=3>已完成</option>
+                                            <option value=4>已放弃</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border: none">完成时间</span>
+                                        <input type="text" class="form-control form_datetime" placeholder="选择时间"
+                                               style="border-radius: 5px" name="complete_datetime" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border: none">是否删除</span>
+                                        <select class="form-control" name="is_delete">
+                                            <option value="0">全部</option>
+                                            <option value="True">是</option>
+                                            <option value="False">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--按钮-->
+                        <div class="box-footer">
+                            <div class="col-xs-1 col-xs-offset-8">
+                                <button type="submit" class="btn btn-primary">重置</button>
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="submit" class="btn btn-primary">查询</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="box box-info">
+                    <!-- /.box-header -->
+                    <div class="box-header with-border">
+                        <h5 class="box-title">过滤结果列表</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">选项 01</a>
+                                </li>
+                                <li><a href="#">选项 02</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-body project-list">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">编号</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">概述</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">状态</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">进度情况</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">优先级</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">完成时间</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for object in page %}
+                            <tr>
+
+                                <td class="project-title">
+                                    <a href="#"> {{object.id}} </a>
+                                </td>
+
+                                <td class="project-title">
+                                    <a href="#">{{object.outline}}</a>
+                                </td>
+                                <td class="project-status">
+                                    <span class="label label-primary">{{object.get_state_display}}</span>
+                                </td>
+                                <td class="project-completion">
+                                    <small>当前进度： {{ object.progress_rate }}%</small>
+                                    <div class="progress progress-mini">
+                                        <div style="width:{{ object.progress_rate }}%;" class="progress-bar"></div>
+                                    </div>
+                                </td>
+                                <td class="project-title">
+                                    <small>
+                                        分数：{{ object.priority_fraction }}
+                                    </small>
+                                    <br>
+                                    <small>
+                                        类型：{{object.event_priority_id.get_own_by_display}} {{object.event_priority_id.get_difficulty_level_display}}
+                                    </small>
+
+                                </td>
+                                <td class="project-title">
+                                    <a href="#">{{object.end_datetime_adjust}}</a>
+
+                                </td>
+                                <td class="project-actions">
+                                    <div class="pull-left">
+                                        <a href="/schedule/schedule/detail?schedule_id={{ object.id }}" class="btn btn-white btn-sm" name="view"><i class="fa fa-folder"></i> 详情 </a>
+                                        <a href="/schedule/schedule/edit?schedule_id={{ object.id }}" class="btn btn-white btn-sm" name="modefi"><i class="fa fa-pencil"></i> 编辑 </a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-footer -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="bars pull-left">
+                                    <div class="btn-group hidden-xs" role="group">
+                                        <button type="button" class="btn btn-outline btn-default">
+                                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div role="alert" aria-live="polite" aria-relevant="all">
+                                    显示 1 到 10 项，共 {{ page.paginator.count }} 项
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div id="per_page">
+                                    <label>每页
+                                        <select class="input-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> 条记录
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div id="page_nums">
+                                    <ul class="pagination pull-right">
+                                        <li class="footable-page-arrow disabled">
+                                            <a data-page="first" href="#first">«</a>
+                                        </li>
+                                        <li class="footable-page-arrow disabled">
+                                            <a data-page="prev" href="#prev">‹</a>
+                                        </li>
+                                        <li class="footable-page active">
+                                            <a data-page="0" href="#">1</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="1" href="#">2</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="2" href="#">3</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="3" href="#">4</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="4" href="#">5</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="5" href="#">6</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="6" href="#">7</a>
+                                        </li>
+                                        <li class="footable-page">
+                                            <a data-page="7" href="#">8</a>
+                                        </li>
+                                        <li class="footable-page-arrow">
+                                            <a data-page="next" href="#next">›</a>
+                                        </li>
+                                        <li class="footable-page-arrow">
+                                            <a data-page="last" href="#last">»</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+{% endblock %}
+
+{% block basehtml-body-js %}
+<!-- DataTables -->
+<script src="/static/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/static/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/plugins/AdminLTE/js/adminlte.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $(".form_datetime").datetimepicker({
+            format: "yyyy-mm-dd hh:ii:ss",
+            autoclose: true,
+            todayBtn: true,
+            startDate: "2019-02-14 10:00:00",
+            minuteStep: 5,
+            language: 'zh-CN',
+        });
+        // 进度控件
+        $(".dial").knob({
+            'min': 0,
+            'max': 100,
+        });
+
+    });
+</script>
+
+
+
+
+{% endblock %}
+
