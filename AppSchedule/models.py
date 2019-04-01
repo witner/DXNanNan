@@ -5,6 +5,49 @@ from AppEvent.models import TEventType, TEventTag
 # Create your models here.
 
 
+class TPriorityDimension(models.Model):
+    '''
+    优先级维度
+    '''
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=16)
+
+    # 权重占比 10 代表 10%， 默认10%
+    weight_ratio = models.IntegerField(default=10)
+
+    is_delete = models.BooleanField(default=False)
+    updated_datetime = models.DateTimeField()
+
+    class Meta:
+        db_table = 't_priority_dimension'
+        ordering = ['-weight_ratio']
+
+    def __str__(self):
+        return self.name
+
+
+class TPrioritySelect(models.Model):
+    '''
+    优先级选择
+    '''
+    id = models.AutoField(primary_key=True)
+    dimension_id = models.ForeignKey(TPriorityDimension, on_delete=models.CASCADE, related_name='select')
+    name = models.CharField(max_length=16)
+    outline = models.CharField(max_length=256, default=u'无', blank=True)
+
+    # 权重占比 10 代表 10%， 默认10%
+    weight_ratio = models.IntegerField(default=10)
+
+    is_delete = models.BooleanField(default=False)
+    updated_datetime = models.DateTimeField()
+
+    class Meta:
+        db_table = 't_priority_select'
+
+    def __str__(self):
+        return self.name
+
+
 class TPriority(models.Model):
     id = models.AutoField(primary_key=True)
     TYPE = (
